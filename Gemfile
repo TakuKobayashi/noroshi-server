@@ -43,3 +43,24 @@ gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :test do
+  gem 'spork'
+  gem 'guard-spork'
+end
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+end
+
+gem 'annotate'
+gem 'kaminari'
+gem 'activerecord-import'
+gem 'therubyracer'
+gem 'execjs'
+gem 'gcm'
