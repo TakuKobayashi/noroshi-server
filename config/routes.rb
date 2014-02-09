@@ -53,4 +53,10 @@ Noroshi::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resource :top, only: [] do
+    post :create_user
+  end
+
+  root to: "top#index"
 end
