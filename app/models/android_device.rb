@@ -16,4 +16,28 @@
 #
 
 class AndroidDevice < Device
+  
+  def self.send_save_message(data = {}, user_ids = [])
+    data.merge!(action_kind: Device::MessageKind::PUT_UP)
+    return self.send(data, user_ids)
+  end
+
+  def self.send_delete_message(data = {}, user_ids = [])
+    data.merge!(action_kind: Device::MessageKind::PUT_UP)
+    return self.send(data, user_ids)
+  end
+
+  private
+  def self.send(data, user_ids = [])
+    gcm = GCM.new(Constants::API_KEY)
+    scope = AndroidDevice.where("notification_token NOT NULL")
+    scope = scope.where(user_id: user_ids) if user_ids.present?
+    send_user_ids = []
+    scope.find_in_batches do |devices|
+      registration_ids = devices.map(&:notification_token)
+      response = gcm.send_notification(registration_ids, {data: data})
+      send_user_ids += devices.map(&:user_id)
+    end
+    return send_user_ids
+  end
 end

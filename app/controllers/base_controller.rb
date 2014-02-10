@@ -10,5 +10,10 @@ class BaseController < ApplicationController
 
   def authentication
     @user = User.where(auth_token: params[:auth_token]).first
+    render_json_error("不正なリクエスト") if @user.blank?
+  end
+
+  def render_json_error(message)
+    render(json: {status: "error", message: message}, status: 400) and return
   end
 end

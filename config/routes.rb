@@ -58,5 +58,13 @@ Noroshi::Application.routes.draw do
     post :create_user
   end
 
+  resource :beacon do
+    post :put_up
+    post :shutdown
+    post :meet
+    post :make_key
+    post :unlock
+  end
+
   root to: "top#index"
 end
