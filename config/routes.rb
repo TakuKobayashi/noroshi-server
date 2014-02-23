@@ -54,7 +54,7 @@ Noroshi::Application.routes.draw do
   #     resources :products
   #   end
 
-  resource :top, only: [] do
+  resource :top, controller: :top,only: [] do
     post :create_user
   end
 

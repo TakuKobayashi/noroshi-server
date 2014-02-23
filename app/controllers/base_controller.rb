@@ -1,5 +1,6 @@
 # coding: utf-8
 class BaseController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_filter :permit_all_parameter
   before_filter :authentication
 

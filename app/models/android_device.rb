@@ -16,19 +16,19 @@
 #
 
 class AndroidDevice < Device
-  
+
   def self.send_save_message(data = {}, user_ids = [])
     data.merge!(action_kind: Device::MessageKind::PUT_UP)
-    return self.send(data, user_ids)
+    return self.send_message(data, user_ids)
   end
 
   def self.send_delete_message(data = {}, user_ids = [])
     data.merge!(action_kind: Device::MessageKind::PUT_UP)
-    return self.send(data, user_ids)
+    return self.send_message(data, user_ids)
   end
 
   private
-  def self.send(data, user_ids = [])
+  def self.send_message(data, user_ids = [])
     gcm = GCM.new(Constants::API_KEY)
     scope = AndroidDevice.where("notification_token NOT NULL")
     scope = scope.where(user_id: user_ids) if user_ids.present?
