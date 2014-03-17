@@ -58,7 +58,7 @@ Noroshi::Application.routes.draw do
     post :create_user
   end
 
-  resource :beacon do
+  resource :beacons do
     post :put_up
     post :shutdown
     post :meet

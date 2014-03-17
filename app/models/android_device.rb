@@ -30,7 +30,7 @@ class AndroidDevice < Device
   private
   def self.send_message(data, user_ids = [])
     gcm = GCM.new(Constants::API_KEY)
-    scope = AndroidDevice.where("notification_token NOT NULL")
+    scope = AndroidDevice.where("notification_token IS NOT NULL")
     scope = scope.where(user_id: user_ids) if user_ids.present?
     send_user_ids = []
     scope.find_in_batches do |devices|

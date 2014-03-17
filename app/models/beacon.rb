@@ -32,7 +32,7 @@ class Beacon < ActiveRecord::Base
 
   before_destroy do
     user_ids = self.beacon_users.pluck(:user_id)
-    AndroidDevice.send_delete_message({table_name: self.table_name, db_data: self.attributes}, user_ids)
+    AndroidDevice.send_delete_message({table_name: self.table_name, db_data: Hash[self.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].to_json}, user_ids)
   end
 
   scope :available, ->(time){
@@ -44,8 +44,8 @@ class Beacon < ActiveRecord::Base
     RANDOM = 1
     SELECT = 2
     KEY = 3
-    SELF = 10
-    GEOCODE = 20
+    GEOCODE = 10
+    SELF = 20
   end
 
   def announce_user!(user_ids)
@@ -67,6 +67,6 @@ class Beacon < ActiveRecord::Base
     device_token = user_device.encript_token
     #送ったpush通知を端末のDBに突っ込むためtable名も記載
     #table_name: self.class.base_class.to_s.underscore.pluralize
-    return AndroidDevice.send_save_message({token: device_token,table_name: Beacon.table_name, db_data: self.attributes}, user_ids)
+    return AndroidDevice.send_save_message({token: device_token,table_name: Beacon.table_name, db_data: Hash[self.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].to_json}, user_ids)
   end
 end

@@ -19,7 +19,7 @@ class BeaconsController < BaseController
     @beacon.kind = params[:kind]
     @beacon.save!
     user_ids = @beacon.announce_user!(params[:user_ids].to_s.split(","))
-    render json: @beacon.attributes.merge(send_user_ids: user_ids.join(","), status: "OK")
+    render json: Hash[@beacon.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].merge(send_user_ids: user_ids.join(","), status: "OK")
   end
 
   def shutdown
@@ -37,13 +37,13 @@ class BeaconsController < BaseController
     beacon_key = BeaconKey.find_or_initialize_by_beacon_id(@beacon.id)
     beacon_key.key = params[:key]
     beacon_key.save!
-    render json: {status: "OK", key: beacon_key.key}
+    render json: Hash[@beacon.user.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].merge(status: "OK", key: beacon_key.key)
   end
 
   def unlock
     beacon_key = BeaconKey.where(key: params[:key]).first
     @user.beacon_users.find_or_create_by_beacon_id(beacon_key.beacon_id)
-    render json: beacon_key.beacon.attributes.merge(status: "OK")
+    render json: Hash[beacon_key.beacon.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].merge(status: "OK")
   end
 
   private
