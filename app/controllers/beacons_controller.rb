@@ -17,6 +17,7 @@ class BeaconsController < BaseController
     @beacon.elevation = params[:elevation].to_f
     @beacon.put_up_time = time
     @beacon.kind = params[:kind]
+    @beacon.location_kind = params[:location_kind]
     @beacon.save!
     user_ids = @beacon.announce_user!(params[:user_ids].to_s.split(","))
     render json: Hash[@beacon.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].merge(send_user_ids: user_ids.join(","), status: "OK")

@@ -44,14 +44,17 @@ class Beacon < ActiveRecord::Base
     RANDOM = 1
     SELECT = 2
     KEY = 3
-    GEOCODE = 10
-    SELF = 20
+  end
+
+  module LocationKind
+    GEOCODE = 1
+    SELF = 2
   end
 
   def announce_user!(user_ids)
-    if self.kind % 10 == Kind::RANDOM
+    if self.kind == Kind::RANDOM
       user_ids = UserAttribute.where(random_receive: true).pluck(:user_id).sample(DEFAULT_RANDOM_COUNT)
-    elsif self.kind % 10 == Kind::SELECT
+    elsif self.kind == Kind::SELECT
       user_ids = user_ids
     else
       return []
