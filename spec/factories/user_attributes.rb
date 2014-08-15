@@ -2,11 +2,11 @@
 #
 # Table name: user_attributes
 #
-#  id             :integer          not null, primary key
-#  user_id        :integer          not null
-#  random_receive :boolean          default(FALSE), not null
-#  created_at     :datetime
-#  updated_at     :datetime
+#  id           :integer          not null, primary key
+#  user_id      :integer          not null
+#  subscription :boolean          default(FALSE), not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 # Indexes
 #

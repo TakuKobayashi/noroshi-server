@@ -1,21 +1,27 @@
 # coding: utf-8
 class TopController < BaseController
-  skip_before_filter :authentication
+  skip_before_filter :verify_authenticity_token, only: [:create_user]
 
   def index
   end
 
   def create_user
+    auth_token = Base64.decode64(params[:auth_token].to_s.strip)
+    mac_address = Security::RSA.private_decrypt(auth_token)
     User.transaction do
-      @user = User.find_or_initialize_by(auth_token: params[:auth_token].strip)
+      android = AndroidDevice.where(mac_address: mac_address).first_or_initialize
+      if android.user.present?
+        @user = android.user
+      else
+        #送られるパラメータは長い+頻繁に使いたくないので適当に作ることにする
+        @user = User.new(auth_token: SecureRandom.uuid)
+      end
       @user.name = params[:name].to_s
       @user.save!
       # TODO 以下はAndroid専用処理
-      android = AndroidDevice.find_or_initialize_by(user_id: @user.id)
+      android.user_id = @user.id
       android.notification_token = params[:registration_id]
       android.device_type = android.class.to_s
-      token = android.decrypt_token(@user.auth_token)
-      android.bluetooth_mac_address = token
       android.save!
     end
     render json: {status: "OK" , auth_token: @user.auth_token, user_id: @user.id, registration_id: params[:registration_id]}

@@ -54,16 +54,17 @@ Noroshi::Application.routes.draw do
   #     resources :products
   #   end
 
-  resource :top, controller: :top,only: [] do
+  resource :top, controller: :top, only: [] do
     post :create_user
   end
 
-  resource :beacons do
-    post :put_up
-    post :shutdown
-    post :meet
-    post :make_key
-    post :unlock
+  namespace :api do
+    resource :beacons do
+      post :put_up
+      post :shutdown
+      post :meet
+      post :unlock
+    end
   end
 
   root to: "top#index"

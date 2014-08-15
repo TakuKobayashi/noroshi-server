@@ -3,20 +3,23 @@
 #
 # Table name: beacons
 #
-#  id          :integer          not null, primary key
-#  user_id     :integer          not null
-#  kind        :integer          not null
-#  message     :string(255)
-#  image_id    :integer          not null
-#  latitude    :float            not null
-#  longitude   :float            not null
-#  elevation   :float            not null
-#  put_up_time :datetime         not null
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id            :integer          not null, primary key
+#  user_id       :integer          not null
+#  key           :string(255)      not null
+#  kind          :integer          not null
+#  location_kind :integer          not null
+#  message       :string(255)
+#  image_id      :integer          not null
+#  latitude      :float(24)        not null
+#  longitude     :float(24)        not null
+#  elevation     :float(24)        not null
+#  put_up_time   :datetime         not null
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 # Indexes
 #
+#  index_beacons_on_key          (key) UNIQUE
 #  index_beacons_on_put_up_time  (put_up_time)
 #  index_beacons_on_user_id      (user_id)
 #
@@ -25,7 +28,6 @@ class Beacon < ActiveRecord::Base
   belongs_to :user
   has_many :beacon_users, dependent: :destroy
   has_many :target_users, through: :beacon_users, source: :user
-  has_one  :beacon_key, dependent: :destroy
 
   MAX_ACTIVE_TIME = 30.minutes
   DEFAULT_RANDOM_COUNT = 10
@@ -52,9 +54,7 @@ class Beacon < ActiveRecord::Base
   end
 
   def announce_user!(user_ids)
-    if self.kind == Kind::RANDOM
-      user_ids = UserAttribute.where(random_receive: true).pluck(:user_id).sample(DEFAULT_RANDOM_COUNT)
-    elsif self.kind == Kind::SELECT
+    if self.kind == Kind::SELECT
       user_ids = user_ids
     else
       return []
