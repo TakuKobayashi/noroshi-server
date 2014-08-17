@@ -58,6 +58,8 @@ Noroshi::Application.routes.draw do
     post :create_user
   end
 
+  resources :connections
+
   namespace :api do
     resource :beacons do
       post :put_up

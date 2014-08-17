@@ -1,0 +1,11 @@
+<script>
+  var iframe = document.createElement('iframe');
+  iframe.className = 'is-hidden';
+  iframe.onload= function() {
+    iframe.parentNode.removeChild(iframe);
+    location.href = <%= Constants::ANDROID_STORE_URL %>;
+  };
+  iframe.src = <%= @redirect_url %>;
+  document.body.appendChild(iframe);
+</script>
+<div style="text-align: center;">アプリテスト</div>

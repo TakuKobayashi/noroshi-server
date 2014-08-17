@@ -28,6 +28,7 @@ class Beacon < ActiveRecord::Base
   belongs_to :user
   has_many :beacon_users, dependent: :destroy
   has_many :target_users, through: :beacon_users, source: :user
+  has_many :beacon_access_logs
 
   MAX_ACTIVE_TIME = 30.minutes
   DEFAULT_RANDOM_COUNT = 10
