@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.5'
 
 # Use sqlite3 as the database for Active Record
 gem 'mysql2'
@@ -30,6 +30,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'addressable'
 
 gem 'jpmobile'
+
+gem 'useragent'
+
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
