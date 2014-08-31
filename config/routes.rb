@@ -67,6 +67,9 @@ Noroshi::Application.routes.draw do
       post :meet
       post :unlock
     end
+
+    resources :facebooks
+    resources :twitters
   end
 
   root to: "top#index"
