@@ -1,5 +1,7 @@
 # coding: utf-8
 class Api::BaseController < BaseController
+  include Api::ErrorHandling
+
   skip_before_filter :verify_authenticity_token
   before_filter :authentication
 
