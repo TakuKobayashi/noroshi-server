@@ -37,6 +37,10 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 
+gem 'whenever', :require => false
+
+gem 'activeadmin', github: 'activeadmin'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -71,6 +75,5 @@ end
 gem 'annotate'
 gem 'kaminari'
 gem 'activerecord-import'
-gem 'therubyracer'
 gem 'execjs'
 gem 'gcm'
