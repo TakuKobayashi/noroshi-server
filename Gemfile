@@ -39,6 +39,7 @@ gem 'omniauth-facebook'
 
 gem 'whenever', :require => false
 
+gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 
 group :doc do
