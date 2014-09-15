@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
 
-# Use sqlite3 as the database for Active Record
 gem 'mysql2'
 
 # Use SCSS for stylesheets
@@ -37,10 +36,19 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 
+#クーロン作成
 gem 'whenever', :require => false
 
+#管理ツール作成-> active_admin用
 gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
+
+#push通知など外部APIを使うときは非同期に処理にしてしまいたい
+gem "delayed_job"
+gem "delayed_job_active_record"
+
+# デプロイ先でデーモンとして動かすのに必要
+gem "daemons"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -73,8 +81,12 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+#modelにDBのカラム名とかを表記
 gem 'annotate'
+#ページネート
 gem 'kaminari'
+#一括insert作成用
 gem 'activerecord-import'
 gem 'execjs'
+#push通知用
 gem 'gcm'
