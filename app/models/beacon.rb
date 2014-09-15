@@ -33,11 +33,6 @@ class Beacon < ActiveRecord::Base
   MAX_ACTIVE_TIME = 30.minutes
   DEFAULT_RANDOM_COUNT = 10
 
-  before_destroy do
-    user_ids = self.beacon_users.pluck(:user_id)
-    AndroidDevice.send_delete_message({table_name: self.table_name, db_data: Hash[self.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].to_json}, user_ids)
-  end
-
   scope :available, ->(time){
     where("? < put_up_time AND put_up_time < ?", time - MAX_ACTIVE_TIME, time + MAX_ACTIVE_TIME)
   }
@@ -55,22 +50,25 @@ class Beacon < ActiveRecord::Base
   end
 
   def announce_user!(user_ids)
-    if self.kind == Kind::SELECT
-      user_ids = user_ids
-    else
-      return []
-    end
+    return [] if user_ids.blank?
     import_data = []
-    add_ids.each do |id|
-      import_data = self.beacon_users.new(user_id: id)
+    beacon_users = self.beacon_users.where(user_id: user_ids)
+    user_ids.each do |id|
+      if beacon_users.all?{|beacon_user| beacon_user.user_id != id.to_i}
+        import_data << self.beacon_users.new(user_id: id)
+      end
     end
     BeaconUser.import(import_data)
+    self.reload
+    beacon_users = self.beacon_users
     # TODO 以下はAndroid専用処理
-    #のろしを立てた人の端末情報を暗号化して送る
-    user_device = Device.where(user_id: self.user_id).first
-    device_token = user_device.encript_token
-    #送ったpush通知を端末のDBに突っ込むためtable名も記載
-    #table_name: self.class.base_class.to_s.underscore.pluralize
-    return AndroidDevice.send_save_message({token: device_token,table_name: Beacon.table_name, db_data: Hash[self.attributes.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }].to_json}, user_ids)
+    AndroidDevice.delay.send_message({action: "create", datas: {Beacon.table_name => ApplicationController.helpers.custom_extract(self)}.to_json}, user_ids)
+    return beacon_users
+  end
+
+  def shut_down!
+    user_ids = self.beacon_users.pluck(:user_id)
+    AndroidDevice.delay.send_message({action: "delete", datas: {Beacon.table_name => ApplicationController.helpers.custom_extract(self)}.to_json}, user_ids)
+    self.destory
   end
 end
