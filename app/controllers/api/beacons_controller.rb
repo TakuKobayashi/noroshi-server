@@ -21,7 +21,6 @@ class Api::BeaconsController < Api::BaseController
     @beacon.key = SecureRandom.hex if @beacon.key.blank?
     @beacon.save!
     @beacon_users = @beacon.announce_user!(params[:user_ids].to_s.split(","))
-    #render json: JSONInstance.model_to_hash(@beacon, {send_user_ids: user_ids.join(","), url: connection_url(id: @beacon.key)})
   end
 
   def shutdown

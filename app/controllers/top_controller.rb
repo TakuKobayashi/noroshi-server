@@ -9,9 +9,9 @@ class TopController < BaseController
     auth_token = Base64.decode64(params[:auth_token].to_s.strip)
     mac_address = Security::RSA.private_decrypt(auth_token)
     User.transaction do
-      android = AndroidDevice.where(mac_address: mac_address).first_or_initialize
-      if android.user.present?
-        @user = android.user
+      @device = AndroidDevice.where(mac_address: mac_address).first_or_initialize
+      if @device.user.present?
+        @user = @device.user
       else
         #送られるパラメータは長い+頻繁に使いたくないので適当に作ることにする
         @user = User.new(auth_token: SecureRandom.hex)
@@ -19,11 +19,10 @@ class TopController < BaseController
       @user.name = params[:name].to_s
       @user.save!
       # TODO 以下はAndroid専用処理
-      android.user_id = @user.id
-      android.notification_token = params[:registration_id]
-      android.device_type = android.class.to_s
-      android.save!
+      @device.user_id = @user.id
+      @device.notification_token = params[:registration_id]
+      @device.device_type = @device.class.to_s
+      @device.save!
     end
-    render json: {status: "OK" , auth_token: @user.auth_token, user_id: @user.id, registration_id: params[:registration_id]}
   end
 end
