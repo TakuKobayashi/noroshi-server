@@ -18,33 +18,32 @@ class Api::BeaconsController < Api::BaseController
     @beacon.put_up_time = time
     @beacon.kind = params[:kind]
     @beacon.location_kind = params[:location_kind]
-    @beacon.key = SecureRandom.uuid if @beacon.key.blank?
+    @beacon.key = SecureRandom.hex if @beacon.key.blank?
     @beacon.save!
-    user_ids = @beacon.announce_user!(params[:user_ids].to_s.split(","))
-    render json: JSONInstance.model_to_hash(@beacon, {send_user_ids: user_ids.join(","), url: connection_url(id: @beacon.key)})
+    #user_ids = @beacon.announce_user!(params[:user_ids].to_s.split(","))
+    #render json: JSONInstance.model_to_hash(@beacon, {send_user_ids: user_ids.join(","), url: connection_url(id: @beacon.key)})
   end
 
   def shutdown
     @beacon.destroy
-    render json: {status: "OK"}
+    head :ok
   end
 
   def meet
     beacon_user = @user.beacon_users.where(beacon_id: @beacon.id).first
     beacon_user.destroy
-    render json: {status: "OK"}
+    head :ok
   end
 
   def unlock
-    beacon = Beacon.where(key: params[:key]).first
-    render_error("存在しない狼煙です") and return false if beacon.blank?
-    @user.beacon_users.where(beacon_id: beacon.id).first_or_create
-    render json: JSONInstance.model_to_hash(beacon)
+    @beacon = Beacon.where(key: params[:key]).first
+    raise BadRequest, "not enough params" if @beacon.blank?
+    @user.beacon_users.where(beacon_id: @beacon.id).first_or_create
   end
 
   private
   def find_beacon
     @beacon = Beacon.where(id: params[:id]).first
-    render_error("存在しない狼煙です") and return false if beacon.blank?
+    raise BadRequest, "cannot find beacon" if @beacon.blank?
   end
 end

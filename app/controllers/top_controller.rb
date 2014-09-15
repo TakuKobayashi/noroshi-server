@@ -14,7 +14,7 @@ class TopController < BaseController
         @user = android.user
       else
         #送られるパラメータは長い+頻繁に使いたくないので適当に作ることにする
-        @user = User.new(auth_token: SecureRandom.uuid)
+        @user = User.new(auth_token: SecureRandom.hex)
       end
       @user.name = params[:name].to_s
       @user.save!
