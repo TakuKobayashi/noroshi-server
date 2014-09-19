@@ -1,12 +1,13 @@
 # coding: utf-8
 module Api::ErrorHandling
-  extend ActiveSupport::Concern
-
   class BadRequest < Exception; end
+  class AuthenticationError < Exception; end
   class PaymentRequired < Exception; end
   class PreconditionFailed < Exception; end
   class Conflict < Exception; end
   class UpgradeRequired < Exception; end
+
+  extend ActiveSupport::Concern
 
   included do
     # サーバー側が想定していない動作が発生した場合に返すエラー
@@ -22,6 +23,11 @@ module Api::ErrorHandling
     # find_by! 系のエラーを全てキャッチ
     rescue_from ActiveRecord::RecordNotFound do |e|
       render_json(status: 400, exception: e)
+    end
+
+    #認証エラー
+    rescue_from AuthenticationError do |e|
+      render_json(status: 401, exception: e)
     end
 
     # 通貨の料金不足の時に返す
