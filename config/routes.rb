@@ -1,6 +1,7 @@
 Noroshi::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -60,19 +61,24 @@ Noroshi::Application.routes.draw do
     post :create_user
   end
 
-  resources :connections
+  resources :sns_connections
 
-  namespace :api do
+  namespace :api, format: false, defaults: { format: :json } do
     resource :beacons do
+      get :put_up
       post :put_up
       post :shutdown
       post :meet
       post :unlock
     end
 
-    resources :facebooks
-    resources :twitters
+    namespace :sns do
+      resource :facebook
+      resource :twitter
+    end
   end
+
+  get "/auth/:provider/callback" => "sns_connections#create"
 
   root to: "top#index"
 end
