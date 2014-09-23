@@ -5,8 +5,8 @@ class Api::Sns::BaseController < Api::BaseController
   private
   def load_sns_connection_info
   	provider = controller_name.singularize
-    @sns_info = @user.sns_connection_infos.where(info_type: (provider + "_info").classify)
-    if @sns_info.blank?
+    @sns = @user.sns.where(type: provider.classify).first
+    if @sns.blank?
       session[:auth_token] = @user.auth_token
       session[:user_id] = @user.id
       redirect_to "/auth/" + provider and return

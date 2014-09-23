@@ -16,9 +16,5 @@
 #  index_sns_connection_infos_on_user_id    (user_id)
 #
 
-class SnsConnectionInfo < ActiveRecord::Base
-  belongs_to :user
-
-  scope :facebook, ->{ where(info_type: "FacebookInfo") }
-  scope :twitter,  ->{ where(info_type: "Info") }
+class Twitter < Sns
 end

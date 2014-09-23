@@ -73,7 +73,10 @@ Noroshi::Application.routes.draw do
     end
 
     namespace :sns do
-      resource :facebook
+      resource :facebook, controller: :facebook do
+        get :tweet
+      end
+
       resource :twitter, controller: :twitter do
         get :tweet
       end
