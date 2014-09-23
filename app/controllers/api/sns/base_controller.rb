@@ -5,7 +5,7 @@ class Api::Sns::BaseController < Api::BaseController
   private
   def load_sns_connection_info
   	provider = controller_name.singularize
-    @sns = @user.sns.where(type: provider.classify).first
+    @sns = @user.sns.where(info_type: (provider + "_info").classify).first
     if @sns.blank?
       session[:auth_token] = @user.auth_token
       session[:user_id] = @user.id

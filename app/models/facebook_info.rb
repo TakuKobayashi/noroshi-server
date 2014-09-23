@@ -17,5 +17,5 @@
 #  index_sns_on_user_id_and_type  (user_id,type) UNIQUE
 #
 
-class Facebook < Sns
+class FacebookInfo < Sns
 end

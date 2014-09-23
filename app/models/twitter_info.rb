@@ -16,5 +16,5 @@
 #  index_sns_connection_infos_on_user_id    (user_id)
 #
 
-class Twitter < Sns
+class TwitterInfo < Sns
 end

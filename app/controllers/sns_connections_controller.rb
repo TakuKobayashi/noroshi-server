@@ -8,7 +8,7 @@ class SnsConnectionsController < BaseController
     else
       sns = Sns
     end
-    sns = sns.find_or_initialize_by(type: auth.provider.classify, uid: auth.uid)
+    sns = sns.find_or_initialize_by(info_type: (auth.provider + "_info").classify, uid: auth.uid)
     sns.token = auth.credentials.token
     sns.token_secret = auth.credentials.secret
     if sns.user_id.present?
