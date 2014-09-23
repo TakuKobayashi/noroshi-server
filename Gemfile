@@ -32,9 +32,13 @@ gem 'jpmobile'
 
 gem 'useragent'
 
+#マルチプラットフォームに対応したOauth認証用
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
+
+#認証後twitterにtweetするためのもの
+gem 'twitter'
 
 #クーロン作成
 gem 'whenever', :require => false
