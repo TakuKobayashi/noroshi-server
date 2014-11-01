@@ -54,6 +54,23 @@ gem "delayed_job_active_record"
 # デプロイ先でデーモンとして動かすのに必要
 gem "daemons"
 
+# Facebook API
+gem 'koala'
+
+gem 'google-api-client', require: 'google/api_client'
+
+gem 'httpclient'
+
+#お手軽メンテナンスモード
+gem 'turnout'
+
+#エクセル操作
+gem 'roo'
+
+gem "paranoia", "~> 2.0"
+
+gem 'omniauth-google-oauth2'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
