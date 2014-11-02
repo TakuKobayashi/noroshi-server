@@ -18,4 +18,5 @@
 #
 
 class SnsConfig < ActiveRecord::Base
+  belongs_to :user
 end

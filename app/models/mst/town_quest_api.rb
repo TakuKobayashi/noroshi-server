@@ -14,6 +14,5 @@
 #  index_mst_api_configs_on_type  (type)
 #
 
-class Mst::ApiConfig < ActiveRecord::Base
-  has_many :api_feature_configs, class_name: "Mst::ApiFeatureConfig", foreign_key: "mst_api_config_id"
+class Mst::TownQuestApi < Mst::ApiConfig
 end

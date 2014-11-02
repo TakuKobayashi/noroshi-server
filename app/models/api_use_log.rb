@@ -15,4 +15,5 @@
 #
 
 class ApiUseLog < ActiveRecord::Base
+  belongs_to :mst_api_feature_config
 end

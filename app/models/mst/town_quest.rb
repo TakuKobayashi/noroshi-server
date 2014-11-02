@@ -27,4 +27,7 @@
 #
 
 class Mst::TownQuest < ActiveRecord::Base
+  scope :range, ->(lat, lon, round){
+    where(lat: (lat - round)..(lat + round), lon: (lon - round)..(lon + round))
+  }
 end
