@@ -15,4 +15,9 @@
 #
 
 class Mst::TownQuestApi < Mst::ApiConfig
+  def self.import_quest(page = 1)
+    mst_townquest_api = Mst::TownQuestApi.first
+    feature = mst_townquest_api.api_feature_configs.index.first
+    Mst::TownQuest.importApiData(feature.request_api(:get,{api_key: mst_townquest_api.api_key, page: page}))
+  end
 end

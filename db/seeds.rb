@@ -43,6 +43,11 @@ def import_sheet(sheet, base_class, options = {})
   #base_class.import(mod_datas)
 end
 
+bench("mst_town_quest") do
+  book = ::Roo::Excelx.new("db/mst_data/mst_town_quest.xlsx")
+  import_sheet(book.sheet("mst_town_quest"), Mst::TownQuest)
+end
+
 bench("mst_api_config") do
   book = ::Roo::Excelx.new("db/mst_data/mst_api_config.xlsx")
   import_sheet(book.sheet("mst_api_configs"), Mst::ApiConfig)
