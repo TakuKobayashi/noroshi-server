@@ -19,7 +19,10 @@ class User < ActiveRecord::Base
   has_many :beacons, dependent: :destroy
   has_many :beacon_users, dependent: :destroy
   has_many :received_beacons, through: :beacon_users, source: :beacon
-  has_many :sns, class_name: "Sns", foreign_key: :user_id
+  has_many :sns_configs, class_name: "SnsConfig", foreign_key: :user_id
+  has_one :facebook, class_name: "FacebookConfig", foreign_key: :user_id
+  has_one :twitter, class_name: "TwitterConfig", foreign_key: :user_id
+ 
 
   after_create do
     UserAttribute.create!(user_id: self.id)

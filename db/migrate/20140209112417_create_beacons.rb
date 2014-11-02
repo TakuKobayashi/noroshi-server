@@ -11,10 +11,12 @@ class CreateBeacons < ActiveRecord::Migration
       t.float     :longitude,     null: false
       t.float     :elevation,     null: false
       t.datetime  :put_up_time,   null: false
+      t.datetime  :deleted_at
       t.timestamps
     end
     add_index :beacons, :user_id
     add_index :beacons, :put_up_time
     add_index :beacons, :key, unique: true
+    add_index :beacons, :deleted_at
   end
 end

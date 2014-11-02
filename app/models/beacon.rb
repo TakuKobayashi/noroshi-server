@@ -14,17 +14,21 @@
 #  longitude     :float(24)        not null
 #  elevation     :float(24)        not null
 #  put_up_time   :datetime         not null
+#  deleted_at    :datetime
 #  created_at    :datetime
 #  updated_at    :datetime
 #
 # Indexes
 #
+#  index_beacons_on_deleted_at   (deleted_at)
 #  index_beacons_on_key          (key) UNIQUE
 #  index_beacons_on_put_up_time  (put_up_time)
 #  index_beacons_on_user_id      (user_id)
 #
 
 class Beacon < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :user
   has_many :beacon_users, dependent: :destroy
   has_many :target_users, through: :beacon_users, source: :user
