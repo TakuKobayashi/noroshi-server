@@ -7,7 +7,7 @@ class Api::BeaconsController < Api::BaseController
     if params[:put_up_time].present?
       time = Time.at(params[:put_up_time].to_i)
     else
-      time = Time.now
+      time = Time.current
     end
     @beacon = @user.beacons.available(time).first_or_initialize
     @beacon.message = params[:message].to_s
@@ -16,11 +16,11 @@ class Api::BeaconsController < Api::BaseController
     @beacon.longitude = params[:longitude].to_f
     @beacon.elevation = params[:elevation].to_f
     @beacon.put_up_time = time
-    @beacon.kind = params[:kind]
     @beacon.location_kind = params[:location_kind]
     @beacon.key = SecureRandom.hex if @beacon.key.blank?
     @beacon.save!
-    @beacon_users = @beacon.announce_user!(params[:user_ids].to_s.split(","))
+    @beacon.announce_user!(params[:user_ids].to_s.split(","))
+    @url = Mst::InfToApi.make_short_url(connection_url(id: @beacon.key))
   end
 
   def shutdown

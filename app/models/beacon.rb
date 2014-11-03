@@ -41,17 +41,10 @@ class Beacon < ActiveRecord::Base
     where("? < put_up_time AND put_up_time < ?", time - MAX_ACTIVE_TIME, time + MAX_ACTIVE_TIME)
   }
 
-  #(住所指定OR今いる位置)AND(ランダムORユーザー指定OR鍵)の組み合わせのため定数を分ける
-  module Kind
-    RANDOM = 1
-    SELECT = 2
-    KEY = 3
-  end
-
-  module LocationKind
-    GEOCODE = 1
-    SELF = 2
-  end
+  enum location_kind: [
+    :geocode,
+    :current
+  ]
 
   def announce_user!(user_ids)
     return [] if user_ids.blank?

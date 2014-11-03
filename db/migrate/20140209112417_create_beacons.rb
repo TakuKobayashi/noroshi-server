@@ -3,7 +3,6 @@ class CreateBeacons < ActiveRecord::Migration
     create_table :beacons do |t|
       t.integer   :user_id,       null: false
       t.string    :key,           null: false
-      t.integer   :kind,          null: false
       t.integer   :location_kind, null: false
       t.string    :message
       t.integer   :image_id,      null: false

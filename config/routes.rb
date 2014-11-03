@@ -58,9 +58,10 @@ Noroshi::Application.routes.draw do
   #   end
 
   resource :top, controller: :top, only: [] do
-    post :create_user
+    post :create_user, format: false, defaults: { format: :json }
   end
 
+  resources :connections
   resources :sns_connections
 
   namespace :api, format: false, defaults: { format: :json } do

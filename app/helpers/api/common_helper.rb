@@ -1,8 +1,6 @@
 module Api::CommonHelper
   def custom_extract(instance, options = {}, *columns)
     attributes = instance.attributes
-    result = {id_in_server: attributes["id"]}
-    attributes.delete_if{|k, v| k == "id" }
     if columns.blank?
       result.merge!(attributes)
       result.merge!(options)
