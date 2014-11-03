@@ -1,2 +1,2 @@
 json.partial! 'each', beacon: @beacon
-json.url = @url
+json.url @url
