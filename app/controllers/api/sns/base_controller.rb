@@ -9,6 +9,7 @@ class Api::Sns::BaseController < Api::BaseController
     if @sns.blank?
       session[:auth_token] = @user.auth_token
       session[:user_id] = @user.id
+      session[:params_json] = params.to_json
       redirect_to "/auth/" + provider and return
     end
   end

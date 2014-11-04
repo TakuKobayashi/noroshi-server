@@ -4,7 +4,7 @@ class SnsConnectionsController < BaseController
     auth = request.env["omniauth.auth"]
     user = User.where(id: session[:user_id], auth_token: session[:auth_token]).first
     if user.present?
-      sns = user.send(auth.provider)
+      sns = user.sns_configs.where(config_type: (auth.provider.classify + "Config"))
     else
       sns = (auth.provider.classify + "Config").constantize
     end
@@ -15,6 +15,6 @@ class SnsConnectionsController < BaseController
       sns.save!
     else
     end
-    redirect_to root_url
+    redirect_to url_for(JSON.parse(session[:params_json]))
   end
 end

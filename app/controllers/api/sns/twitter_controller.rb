@@ -4,7 +4,10 @@ class Api::Sns::TwitterController < Api::Sns::BaseController
 
   def tweet
   	@tweet = params[:tweet]
-  	@twitter_client.update(@tweet)
+    options = {}
+    options.merge!(lat: params[:lat].to_f, long: params[:long].to_f) if params[:lat].present? && params[:long].present?
+  	@twitter_client.update(@tweet, options)
+    head(:ok)
   end
 
   private
