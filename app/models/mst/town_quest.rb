@@ -7,6 +7,7 @@
 #  name               :string(255)      not null
 #  lat                :float(24)        not null
 #  lng                :float(24)        not null
+#  elevation          :float(24)
 #  question_truncated :string(255)      not null
 #  username           :string(255)      not null
 #  user_avatar_url    :string(255)

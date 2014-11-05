@@ -5,6 +5,7 @@ class CreateMstTownQuests < ActiveRecord::Migration
       t.string :name, null: false
       t.float  :lat, null: false
       t.float  :lng, null: false
+      t.float  :elevation
       t.string :question_truncated, null: false
       t.string :username, null: false
       t.string :user_avatar_url
