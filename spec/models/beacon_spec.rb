@@ -5,7 +5,6 @@
 #  id            :integer          not null, primary key
 #  user_id       :integer          not null
 #  key           :string(255)      not null
-#  kind          :integer          not null
 #  location_kind :integer          not null
 #  message       :string(255)
 #  image_id      :integer          not null

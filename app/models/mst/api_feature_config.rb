@@ -29,7 +29,8 @@ class Mst::ApiFeatureConfig < ActiveRecord::Base
 
   enum category: [
     :index,
-    :make
+    :make,
+    :elevation
   ]
 
   def parse_to_hash(result)
