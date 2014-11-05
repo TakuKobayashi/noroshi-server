@@ -28,6 +28,9 @@
 #
 
 class Mst::TownQuest < ActiveRecord::Base
+  #約2km
+  ACTIVE_ROUND = 0.00184
+
   scope :range, ->(lat, lng, round){
     where(lat: (lat - round)..(lat + round), lng: (lng - round)..(lng + round))
   }

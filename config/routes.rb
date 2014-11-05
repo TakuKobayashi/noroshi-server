@@ -66,11 +66,19 @@ Noroshi::Application.routes.draw do
 
   namespace :api, format: false, defaults: { format: :json } do
     resource :beacons do
-      get :put_up
       post :put_up
       post :shutdown
       post :meet
       post :unlock
+    end
+
+    resources :town_quests do
+      collection do
+        post :around
+      end
+      member do
+        post :approach
+      end
     end
 
     namespace :sns do

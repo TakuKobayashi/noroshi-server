@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :sns_configs, class_name: "SnsConfig", foreign_key: :user_id
   has_one :facebook, class_name: "FacebookConfig", foreign_key: :user_id
   has_one :twitter, class_name: "TwitterConfig", foreign_key: :user_id
+  has_many :quests
  
 
   after_create do
