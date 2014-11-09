@@ -10,6 +10,6 @@ module Api::CommonHelper
       end
       result.merge!(options)
     end
-    return Hash[result.map{|k,v| [k, v.kind_of?(Time) ? v.to_i : v] }]
+    return Hash[result.map{|k,v| [k, v.kind_of?(Time) ? v.to_i * 1000 : v] }]
   end
 end

@@ -9,5 +9,5 @@ json.image_id       beacon.image_id
 json.latitude       beacon.latitude
 json.longitude      beacon.longitude
 json.elevation      beacon.elevation
-json.put_up_time    beacon.put_up_time.to_i
-json.shut_down_time beacon.shut_down_time.to_i
+json.put_up_time    beacon.put_up_time.to_i * 1000
+json.shut_down_time beacon.shut_down_time.to_i * 1000
