@@ -8,6 +8,7 @@
 #  uid          :string(255)      not null
 #  token        :string(255)
 #  token_secret :string(255)
+#  expired_at   :datetime
 #  created_at   :datetime
 #  updated_at   :datetime
 #

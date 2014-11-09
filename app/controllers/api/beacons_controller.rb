@@ -9,18 +9,22 @@ class Api::BeaconsController < Api::BaseController
     else
       time = Time.current
     end
-    @beacon = @user.beacons.available(time).first_or_initialize
-    @beacon.message = params[:message].to_s
-    @beacon.image_id = params[:image_id]
-    @beacon.latitude = params[:latitude].to_f
-    @beacon.longitude = params[:longitude].to_f
-    @beacon.elevation = params[:elevation].to_f
-    @beacon.put_up_time = time
-    @beacon.location_kind = params[:location_kind]
-    @beacon.key = SecureRandom.hex if @beacon.key.blank?
-    @beacon.save!
-    @beacon.announce_user!(params[:user_ids].to_s.split(","))
-    @url = Mst::InfToApi.make_short_url(connection_url(id: @beacon.key))
+    @beacon = @user.beacons.new
+    @user.transaction do
+      @beacon.message = params[:message].to_s
+      @beacon.image_id = params[:image_id]
+      @beacon.latitude = params[:latitude].to_f
+      @beacon.longitude = params[:longitude].to_f
+      @beacon.elevation = params[:elevation].to_f
+      @beacon.put_up_time = time
+      @beacon.shut_down_time = time + @user.beacon_active_span.second
+      @beacon.location_kind = params[:location_kind]
+      @beacon.key = SecureRandom.hex
+      @beacon.url = Mst::InfToApi.make_short_url(connection_url(id: @beacon.key))
+      @user.beacon_count_up!
+      @beacon.save!
+      @beacon.announce_user!(params[:user_ids].to_s.split(","))
+    end
   end
 
   def shutdown
@@ -37,7 +41,7 @@ class Api::BeaconsController < Api::BaseController
   def unlock
     @beacon = Beacon.where(key: params[:key]).first
     raise BadRequest, "not enough params" if @beacon.blank?
-    @user.beacon_users.where(beacon_id: @beacon.id).first_or_create
+    @user.beacon_users.first_or_create_by(beacon_id: @beacon.id)
   end
 
   private

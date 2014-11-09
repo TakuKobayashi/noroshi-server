@@ -30,7 +30,8 @@ class Mst::ApiFeatureConfig < ActiveRecord::Base
   enum category: [
     :index,
     :make,
-    :elevation
+    :elevation,
+    :geocode
   ]
 
   def parse_to_hash(result)
@@ -44,7 +45,10 @@ class Mst::ApiFeatureConfig < ActiveRecord::Base
 
   def request_api(method = :post, params = {}, header = {})
     http_client = HTTPClient.new
-    response = http_client.send(method, self.request_url, params, header)
-    return self.parse_to_hash(response.body)
+    response = http_client.send(method, self.request_url, params.compact, header.compact)
+    hash = self.parse_to_hash(response.body)
+    api_use_log = self.api_use_logs.first_or_initialize
+    api_use_log.count_up!
+    return hash
   end
 end

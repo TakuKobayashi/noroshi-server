@@ -18,10 +18,11 @@
 #  index_sns_configs_on_user_id_and_config_type  (user_id,config_type) UNIQUE
 #
 
-class TwitterConfig < SnsConfig
+class GoogleConfig < SnsConfig
   def record!(auth)
     self.token = auth.credentials.token
-    self.token_secret = auth.credentials.secret
+    self.token_secret = auth.credentials.refresh_token
+    self.expired_at = Time.at(auth.credentials.expires_at.to_i)
     self.save!
   end
 end

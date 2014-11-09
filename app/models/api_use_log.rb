@@ -16,4 +16,13 @@
 
 class ApiUseLog < ActiveRecord::Base
   belongs_to :mst_api_feature_config
+
+  def count_up!
+    unless self.last_used_at.try(:today?)
+      self.use_count = 0
+    end
+    self.last_used_at = Time.current
+    self.use_count += 0
+    self.save!
+  end
 end

@@ -1,1 +1,1 @@
-json.merge!(custom_extract(@beacon))
+json.partial! 'each', beacon: @beacon

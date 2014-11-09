@@ -18,6 +18,8 @@ class TopController < BaseController
       end
       @user.name = params[:name].to_s
       @user.save!
+      @user.user_attribute.language_code = params[:language_code].to_s
+      @user.user_attribute.save!
       # TODO 以下はAndroid専用処理
       @device.user_id = @user.id
       @device.notification_token = params[:registration_id]

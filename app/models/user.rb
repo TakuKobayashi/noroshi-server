@@ -14,6 +14,8 @@
 #
 
 class User < ActiveRecord::Base
+  include User::BeaconAction
+
   has_one :device, dependent: :destroy
   has_one :user_attribute, dependent: :destroy
   has_many :beacons, dependent: :destroy
@@ -22,8 +24,13 @@ class User < ActiveRecord::Base
   has_many :sns_configs, class_name: "SnsConfig", foreign_key: :user_id
   has_one :facebook, class_name: "FacebookConfig", foreign_key: :user_id
   has_one :twitter, class_name: "TwitterConfig", foreign_key: :user_id
+  has_one :google, class_name: "GoogleConfig", foreign_key: :user_id
   has_many :quests
- 
+
+  delegate :beacon_active_span, to: :user_attribute
+  delegate :last_put_up_time, to: :user_attribute
+  delegate :put_up_count, to: :user_attribute
+  delegate :language_code, to: :user_attribute
 
   after_create do
     UserAttribute.create!(user_id: self.id)
