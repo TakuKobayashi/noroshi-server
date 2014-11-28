@@ -1,5 +1,6 @@
 module Api::CommonHelper
   def custom_extract(instance, options = {}, *columns)
+    result = {}
     attributes = instance.attributes
     if columns.blank?
       result.merge!(attributes)
