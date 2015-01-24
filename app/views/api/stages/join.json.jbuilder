@@ -1,0 +1,1 @@
+json.partial! 'each', stage: @new_stage

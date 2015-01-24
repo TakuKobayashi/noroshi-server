@@ -1,0 +1,1 @@
+json.array!(@stages, partial: 'each', as: :stage)

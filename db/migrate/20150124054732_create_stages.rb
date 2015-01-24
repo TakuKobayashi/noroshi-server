@@ -3,7 +3,6 @@ class CreateStages < ActiveRecord::Migration
     create_table :stages do |t|
       t.integer :user_id, null: false
       t.integer :mst_stage_id, null: false
-      t.boolean :played, null: false, default: false
       t.boolean :clear, null: false, default: false
       t.string :token, null: false
       t.timestamps

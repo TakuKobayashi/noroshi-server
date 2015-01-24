@@ -98,6 +98,11 @@ Noroshi::Application.routes.draw do
       end
     end
     resources :users
+    resources :stages do
+      collection do
+        post :join
+      end
+    end
   end
 
   get "/auth/:provider/callback" => "sns_connections#create"

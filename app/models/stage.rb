@@ -23,4 +23,5 @@ class Stage < ActiveRecord::Base
   belongs_to :user
   belongs_to :mst, class_name: "Mst::Stage", foreign_key: "mst_stage_id"
   has_many :gimicks
+  has_many :requests, class_name: "StageRequest", foreign_key: "stage_id"
 end

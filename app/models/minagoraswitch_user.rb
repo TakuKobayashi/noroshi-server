@@ -16,4 +16,6 @@
 #
 
 class MinagoraswitchUser < User
+  has_many :stages, class_name: "Stage", foreign_key: "user_id"
+  has_many :stage_requests
 end
