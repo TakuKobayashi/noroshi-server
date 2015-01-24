@@ -5,7 +5,6 @@
 #  id           :integer          not null, primary key
 #  user_id      :integer          not null
 #  mst_stage_id :integer          not null
-#  played       :boolean          default(FALSE), not null
 #  clear        :boolean          default(FALSE), not null
 #  token        :string(255)      not null
 #  created_at   :datetime
@@ -22,6 +21,6 @@
 class Stage < ActiveRecord::Base
   belongs_to :user
   belongs_to :mst, class_name: "Mst::Stage", foreign_key: "mst_stage_id"
-  has_many :gimicks
+  has_many :gimmicks
   has_many :requests, class_name: "StageRequest", foreign_key: "stage_id"
 end

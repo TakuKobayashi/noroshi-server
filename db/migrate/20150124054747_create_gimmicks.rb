@@ -4,8 +4,8 @@ class CreateGimmicks < ActiveRecord::Migration
       t.integer :user_id, null: false
       t.integer :stage_id, null: false
       t.integer :mst_gimmick_id, null: false
-      t.float :postion_x, null: false, default: 0
-      t.float :postion_y, null: false, default: 0
+      t.float :position_x, null: false, default: 0
+      t.float :position_y, null: false, default: 0
       t.integer :turn_number, null: false, default: 0
       t.timestamps
     end

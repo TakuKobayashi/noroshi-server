@@ -6,8 +6,8 @@
 #  user_id        :integer          not null
 #  stage_id       :integer          not null
 #  mst_gimmick_id :integer          not null
-#  postion_x      :float(24)        default(0.0), not null
-#  postion_y      :float(24)        default(0.0), not null
+#  position_x     :float(24)        default(0.0), not null
+#  position_y     :float(24)        default(0.0), not null
 #  turn_number    :integer          default(0), not null
 #  created_at     :datetime
 #  updated_at     :datetime

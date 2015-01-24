@@ -5,7 +5,6 @@
 #  id           :integer          not null, primary key
 #  user_id      :integer          not null
 #  mst_stage_id :integer          not null
-#  played       :boolean          default(FALSE), not null
 #  clear        :boolean          default(FALSE), not null
 #  token        :string(255)      not null
 #  created_at   :datetime
