@@ -40,7 +40,7 @@ class Api::StagesController < Api::BaseController
   end
 
   def logout
-    stage = @user.stages.find_by(token: params[:token])
+    stage = @user.stages.find_by!(token: params[:token])
     stage.destroy
     head(:ok)
   end
