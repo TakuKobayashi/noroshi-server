@@ -14,7 +14,6 @@
 #
 
 class User < ActiveRecord::Base
-  include User::BeaconAction
 
   has_one :device, dependent: :destroy
   has_one :user_attribute, dependent: :destroy

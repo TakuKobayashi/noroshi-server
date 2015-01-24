@@ -97,6 +97,7 @@ Noroshi::Application.routes.draw do
         post :tweet
       end
     end
+    resources :users
   end
 
   get "/auth/:provider/callback" => "sns_connections#create"
