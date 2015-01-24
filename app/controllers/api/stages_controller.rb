@@ -4,7 +4,7 @@ class Api::StagesController < Api::BaseController
   end
 
   def create
-    @users = User.where(id: params[:user_ids])
+    @users = User.where(id: params[:user_ids].split(","))
     Stage.transaction do
       @stage = @user.stages.create!(mst_stage_id: params[:mst_stage_id], clear: false, token: SecureRandom.hex)
       @users.each do |user|
