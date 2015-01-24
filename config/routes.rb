@@ -101,6 +101,10 @@ Noroshi::Application.routes.draw do
     resources :stages do
       collection do
         post :join
+        post :continue
+      end
+      member do
+        post :next_stage
       end
     end
   end

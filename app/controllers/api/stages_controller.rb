@@ -23,6 +23,20 @@ class Api::StagesController < Api::BaseController
   end
 
   def next_stage
+    stage = Stage.find_by!(id: params[:id])
+    Stage.transaction do
+      stage.update!(clear: true)
+      next_stage = Mst::Stage.where("number > ?", stage.mst.number).order("number ASC").first
+      @new_stage = @user.stages.create!(mst_stage_id: next_stage.id, clear: false, token: SecureRandom.hex)
+    end
+  end
+
+  def continue
+    stages = Stage.where(token: params[:token])
+    Stage.transaction do
+      Gimmick.where(stage_id: stages.pluck(:id)).destroy_all
+    end
+    head(:ok)
   end
 
   def logout
