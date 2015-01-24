@@ -15,4 +15,6 @@
 #
 
 class Mst::Stage < ActiveRecord::Base
+  has_many :stage_gimmicks, class_name: "Mst::StageGimmick", foreign_key: "mst_stage_id"
+  has_many :gimmicks, through: :stage_gimmicks, source: :mst_gimmick
 end

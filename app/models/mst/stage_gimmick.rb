@@ -16,4 +16,6 @@
 #
 
 class Mst::StageGimmick < ActiveRecord::Base
+  belongs_to :mst_stage, class_name: "Mst::Stage"
+  belongs_to :mst_gimmick, class_name: "Mst::Gimmick"
 end

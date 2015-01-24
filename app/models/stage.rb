@@ -20,4 +20,7 @@
 #
 
 class Stage < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :mst, class_name: "Mst::Stage", foreign_key: "mst_stage_id"
+  has_many :gimicks
 end

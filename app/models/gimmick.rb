@@ -21,4 +21,7 @@
 #
 
 class Gimmick < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :stage
+  belongs_to :mst, class_name: "Mst::Gimmick", foreign_key: "mst_gimmick_id"
 end

@@ -53,3 +53,10 @@ bench("mst_api_config") do
   import_sheet(book.sheet("mst_api_configs"), Mst::ApiConfig)
   import_sheet(book.sheet("mst_api_feature_configs"), Mst::ApiFeatureConfig)
 end
+
+bench("minagoraswitch_master_data") do
+  book = ::Roo::Excelx.new("db/mst_data/minagoraswitch_master_data.xlsx")
+  import_sheet(book.sheet("mst_stage_gimmick"), Mst::StageGimmick)
+  import_sheet(book.sheet("mst_stage"), Mst::Stage)
+  import_sheet(book.sheet("mst_gimmick"), Mst::Gimmick)
+end
