@@ -2,7 +2,7 @@ class Api::GimmicksController < Api::BaseController
   before_filter :load_stage
 
   def index
-    @gimmicks = Gimmick.where(stage: Stage.where(token: @stage.token), turn_number: params[:turn_number]).includes(:stage)
+    @gimmicks = Gimmick.where(stage: Stage.where(token: @stage.token), turn_number: params[:turn_number]).where.not(user_id: @user.id).includes(:stage)
   end
 
   def create
