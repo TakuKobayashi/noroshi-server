@@ -35,3 +35,5 @@ vendor/bundle/
 .bundle/config
 /public/system/
 /public/assets/
+
+/config/api_config.yml
