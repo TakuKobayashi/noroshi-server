@@ -34,13 +34,21 @@ class Mst::ApiFeatureConfig < ActiveRecord::Base
     :geocode
   ]
 
-  def parse_to_hash(result)
+  def parse_to_hash(text)
     if self.request_format.to_sym == :json
-      hash = JSON.parse(result)
+      begin 
+        result = JSON.parse(text)
+      rescue JSON::ParserError => e
+        result = text
+      end
     elsif self.request_format.to_sym == :xml
-      hash = Hash.from_xml(result)
+      begin
+        result = Hash.from_xml(text)
+      rescue REXML::ParseException => e
+        result = text
+      end
     end
-    return hash
+    return result
   end
 
   def request_api(method = :post, params = {}, header = {})

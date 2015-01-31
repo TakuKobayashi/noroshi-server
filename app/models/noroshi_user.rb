@@ -13,6 +13,6 @@
 #  index_users_on_auth_token  (auth_token) UNIQUE
 #
 
-class User < ActiveRecord::Base
+class NoroshiUser < User
   include User::BeaconAction
 end

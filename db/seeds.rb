@@ -43,15 +43,22 @@ def import_sheet(sheet, base_class, options = {})
   #base_class.import(mod_datas)
 end
 
-bench("mst_town_quest") do
-  book = ::Roo::Excelx.new("db/mst_data/mst_town_quest.xlsx")
-  import_sheet(book.sheet("mst_town_quest"), Mst::TownQuest)
-end
-
 bench("mst_api_config") do
   book = ::Roo::Excelx.new("db/mst_data/mst_api_config.xlsx")
   import_sheet(book.sheet("mst_api_configs"), Mst::ApiConfig)
+  oauth_api_config = YAML.load(File.read("#{Rails.root}/config/api_config.yml"))
+  oauth_api_config.each do |api_name, keys|
+    config = Mst::ApiConfig.new(type: "Mst::" + api_name.classify + "Api")
+    config.attributes = keys
+    config.save!
+  end
   import_sheet(book.sheet("mst_api_feature_configs"), Mst::ApiFeatureConfig)
+end
+
+
+bench("mst_town_quest") do
+  book = ::Roo::Excelx.new("db/mst_data/mst_town_quest.xlsx")
+  import_sheet(book.sheet("mst_town_quest"), Mst::TownQuest)
 end
 
 bench("minagoraswitch_master_data") do
