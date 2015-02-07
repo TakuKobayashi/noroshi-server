@@ -25,6 +25,19 @@ class FacebookConfig < SnsConfig
   	self.mst_api_config_id = Mst::FacebookApi.first.id
     self.token = auth.credentials.token
     self.token_secret = auth.credentials.secret
+    self.expired_at = Time.at(auth.credentials.expires_at.to_i) if auth.credentials.expires_at.present?
     self.save!
+  end
+
+  def feed!(text, options = {})
+  	graph = setup_koala
+  	logger.info graph.get_object("me")
+  	logger.info graph.get_connections("me", "friends")
+    graph.put_connections("me", "feed", :message => text)
+  end
+
+  private
+  def setup_koala
+    return Koala::Facebook::API.new(self.token)
   end
 end
