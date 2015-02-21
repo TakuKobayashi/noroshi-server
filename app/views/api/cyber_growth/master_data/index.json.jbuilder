@@ -13,3 +13,8 @@ json.set! "sectors" do
     end
   end
 end
+json.set! "enemies" do
+  json.array!(@mst_enemies) do |enemy|
+    json.extract! enemy, :mst_sector_id, :hp, :attack, :category
+  end
+end

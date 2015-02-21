@@ -74,3 +74,8 @@ bench("cyber_growth_master_data") do
   import_sheet(book.sheet("mst_sector_quizzes"), Mst::SectorQuiz)
   import_sheet(book.sheet("mst_sector_quiz_choices"), Mst::SectorQuizChoice)
 end
+
+bench("cyber_growth_enemy") do
+  book = ::Roo::Excelx.new("db/mst_data/cyber_growth_enemy.xlsx")
+  import_sheet(book.sheet("mst_cyber_growth_enemies"), Mst::CyberGrowthEnemy)
+end

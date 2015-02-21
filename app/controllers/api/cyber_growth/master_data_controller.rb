@@ -3,5 +3,6 @@ class Api::CyberGrowth::MasterDataController < Api::BaseController
 
   def index
     @mst_sectors = Mst::Sector.includes(quizzes: :choices).all
+    @mst_enemies  = Mst::CyberGrowthEnemy.all
   end
 end

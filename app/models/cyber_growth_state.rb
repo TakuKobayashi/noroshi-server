@@ -7,6 +7,7 @@
 #  admin_pp          :integer          default(100), not null
 #  current_sector_id :integer          not null
 #  scene_chapter     :integer          default(0), not null
+#  admin_attack      :integer          default(10), not null
 #  created_at        :datetime
 #  updated_at        :datetime
 #

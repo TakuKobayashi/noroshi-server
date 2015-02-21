@@ -5,6 +5,7 @@ class CreateCyberGrowthStates < ActiveRecord::Migration
       t.integer :admin_pp, null: false, default: 100
       t.integer :current_sector_id, null: false
       t.integer :scene_chapter, null: false, default: 0
+      t.integer :admin_attack, null: false, default: 10
       t.timestamps
     end
     add_index :cyber_growth_states, :user_id
