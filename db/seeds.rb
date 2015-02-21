@@ -67,3 +67,10 @@ bench("minagoraswitch_master_data") do
   import_sheet(book.sheet("mst_stage"), Mst::Stage)
   import_sheet(book.sheet("mst_gimmick"), Mst::Gimmick)
 end
+
+bench("cyber_growth_master_data") do
+  book = ::Roo::Excelx.new("db/mst_data/cyber_growth_master_data.xlsx")
+  import_sheet(book.sheet("mst_sectors"), Mst::Sector)
+  import_sheet(book.sheet("mst_sector_quizzes"), Mst::SectorQuiz)
+  import_sheet(book.sheet("mst_sector_quiz_choices"), Mst::SectorQuizChoice)
+end
