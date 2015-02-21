@@ -1,6 +1,6 @@
 json.set! "sectors" do
   json.array!(@mst_sectors) do |mst_sector|
-    json.extract! mst_sector, :title, :number
+    json.extract! mst_sector, :id, :title, :number
     json.set! "quizzes" do
       json.array!(mst_sector.quizzes) do |quiz|
         json.extract! quiz, :title, :number, :correct_index

@@ -114,6 +114,12 @@ Noroshi::Application.routes.draw do
 
     namespace :cyber_growth do
       resources :master_data
+      resources :users do
+        collection do
+          post :save_data
+          post :login
+        end
+      end
     end
   end
 
