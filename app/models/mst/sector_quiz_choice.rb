@@ -8,6 +8,10 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #
+# Indexes
+#
+#  index_mst_sector_quiz_choices_on_mst_sector_quiz_id  (mst_sector_quiz_id)
+#
 
 class Mst::SectorQuizChoice < ActiveRecord::Base
 end
