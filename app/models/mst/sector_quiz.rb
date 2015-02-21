@@ -18,5 +18,4 @@
 
 class Mst::SectorQuiz < ActiveRecord::Base
   has_many :choices, class_name: 'Mst::SectorQuizChoice', foreign_key: :mst_sector_quiz_id
-  belongs_to :correct_choice, class_name: 'Mst::SectorQuizChoice', foreign_key: :correct_choice_id
 end

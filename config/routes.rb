@@ -109,6 +109,10 @@ Noroshi::Application.routes.draw do
     end
     resources :gimmicks
     resources :master_data
+
+    namespace :cyber_growth do
+      resources :master_data
+    end
   end
 
   get "/auth/:provider/callback" => "sns_connections#create"
