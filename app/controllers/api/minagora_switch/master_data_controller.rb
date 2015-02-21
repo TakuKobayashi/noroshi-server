@@ -1,4 +1,4 @@
-class Api::MasterDataController < Api::BaseController
+class Api::MinagoraSwitch::MasterDataController < Api::BaseController
   skip_before_filter :authentication
   def index
     @mst_gimmicks = Mst::Gimmick.all

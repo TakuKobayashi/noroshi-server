@@ -14,7 +14,7 @@ class TopController < BaseController
         @user = @device.user
       else
         #送られるパラメータは長い+頻繁に使いたくないので適当に作ることにする
-        @user = NoroshiUser.new(auth_token: SecureRandom.hex, type: "NoroshiUser")
+        @user = NoroshiUser.new(auth_token: SecureRandom.hex, session_token: SecureRandom.hex, type: "NoroshiUser")
       end
       @user.name = params[:name].to_s
       @user.save!

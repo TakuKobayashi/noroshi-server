@@ -97,7 +97,6 @@ Noroshi::Application.routes.draw do
         post :tweet
       end
     end
-    resources :users
     resources :stages do
       collection do
         post :join
@@ -108,7 +107,10 @@ Noroshi::Application.routes.draw do
       end
     end
     resources :gimmicks
-    resources :master_data
+    namespace :minagora_switch do
+      resources :users
+      resources :master_data
+    end
 
     namespace :cyber_growth do
       resources :master_data
