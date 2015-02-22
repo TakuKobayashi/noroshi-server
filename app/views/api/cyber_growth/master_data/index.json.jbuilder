@@ -15,6 +15,7 @@ json.set! "sectors" do
 end
 json.set! "enemies" do
   json.array!(@mst_enemies) do |enemy|
-    json.extract! enemy, :mst_sector_id, :hp, :attack, :category
+    json.extract! enemy, :mst_sector_id, :hp, :attack
+    json.category Mst::CyberGrowthEnemy.categories[enemy.category]
   end
 end
