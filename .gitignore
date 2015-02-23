@@ -37,3 +37,4 @@ vendor/bundle/
 /public/assets/
 
 /config/api_config.yml
+/db/mst_data/
